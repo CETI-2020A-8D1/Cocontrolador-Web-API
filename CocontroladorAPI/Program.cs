@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace CocontroladorAPI
@@ -13,14 +14,22 @@ namespace CocontroladorAPI
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            BuildWebHost(args).Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+        public static IWebHost BuildWebHost(string[] args) =>
+             WebHost.CreateDefaultBuilder(args)
+                     .UseIISIntegration()
+                     .UseKestrel()
+                     .UseContentRoot(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location))
+                     .ConfigureAppConfiguration((hostingContext, config) =>
+                     {
+                         IWebHostEnvironment env = hostingContext.HostingEnvironment;
+                         config.SetBasePath(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location));
+                         config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                               .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+                     })
+                 .UseStartup<Startup>()
+                 .Build();
     }
 }
