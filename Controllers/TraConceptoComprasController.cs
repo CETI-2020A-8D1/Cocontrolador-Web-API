@@ -30,10 +30,11 @@ namespace CocontroladorAPI.Controllers
 
         // GET: api/TraConceptoCompras/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TraConceptoCompra>> GetTraConceptoCompra(int id)
+        // public async Task<ActionResult<TraConceptoCompra>> GetTraConceptoCompra(int id) 
+        public async Task<ActionResult<IEnumerable<TraConceptoCompra>>> GetTraConceptoCompra(int id) // id de la compra
         {
-            var traConceptoCompra = await _context.TraConceptoCompra.FindAsync(id);
-
+            //var traConceptoCompra = await _context.TraConceptoCompra.FindAsync(id);
+            var traConceptoCompra = await _context.TraConceptoCompra.Where(p => p.Idcompra == id).ToListAsync();
             if (traConceptoCompra == null)
             {
                 return NotFound();
