@@ -20,7 +20,7 @@ namespace CocontroladorAPI
         public static IWebHost BuildWebHost(string[] args) =>
              WebHost.CreateDefaultBuilder(args)
                      .UseIISIntegration()
-                     .UseKestrel()
+                     //.UseKestrel()
                      .UseContentRoot(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location))
                      .ConfigureAppConfiguration((hostingContext, config) =>
                      {
