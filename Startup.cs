@@ -18,6 +18,11 @@ namespace CocontroladorAPI
 {
     public class Startup
     {
+        /*
+        "Server=DESKTOP-HMU7HLM\\MSSQLSERVER01;Database=CocotecaPrueba;Integrated Security=True"                // Maic
+        "Server=LAPTOP-UOPKI5AA\\MSSQLSERVER01;Database=CocotecaPrueba;Integrated Security=True"                // Nose
+        */
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -35,7 +40,7 @@ namespace CocontroladorAPI
                 Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddDbContext<Models.CocotecaPruebaContext>(opciones =>
-            opciones.UseSqlServer("Server=LAPTOP-UOPKI5AA\\MSSQLSERVER01;Database=CocotecaPrueba;Integrated Security=True"));
+            opciones.UseSqlServer("Server=DESKTOP-HMU7HLM\\MSSQLSERVER01;Database=CocotecaPrueba;Integrated Security=True"));
             //opciones.UseSqlServer("Server = DESKTOP-PCSQKMV; Database = CocotecaPrueba; User ID = neri; Password = Ajimin011100"));
         }
 
