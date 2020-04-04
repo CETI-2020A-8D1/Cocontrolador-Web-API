@@ -30,8 +30,9 @@ namespace CocontroladorAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CatCategorias>>> GetCategorias()
         {
-            var categorias = await _context.CatCategorias.Where(c => c.MtoCatLibros.Count() > 0).ToListAsync();
-
+            var categorias = await _context.CatCategorias
+                .Where(c => c.MtoCatLibros.Count() > 0 && c.MtoCatLibros.Any(o => !o.Descontinuado && o.Stock > 0))
+                .ToListAsync();
             return categorias;
         }
 
