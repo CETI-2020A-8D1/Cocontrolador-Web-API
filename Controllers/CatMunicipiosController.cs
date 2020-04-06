@@ -10,50 +10,50 @@ using CocontroladorAPI.Models;
 namespace CocontroladorAPI.Controllers
 {
     [Produces("application/json")]
-    [Route("api/CatPaises")]
+    [Route("api/CatMunicipios")]
     [ApiController]
-    public class CatPaisesController : ControllerBase
+    public class CatMunicipiosController : ControllerBase
     {
         private readonly CocotecaContext _context;
 
-        public CatPaisesController(CocotecaContext context)
+        public CatMunicipiosController(CocotecaContext context)
         {
             _context = context;
         }
 
-        // GET: api/CatPaises
+        // GET: api/CatMunicipios
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CatPaises>>> GetCatPaises()
+        public async Task<ActionResult<IEnumerable<CatMunicipios>>> GetCatMunicipios()
         {
-            return await _context.CatPaises.ToListAsync();
+            return await _context.CatMunicipios.ToListAsync();
         }
 
-        // GET: api/CatPaises/5
+        // GET: api/CatMunicipios/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CatPaises>> GetCatPaises(int id)
+        public async Task<ActionResult<CatMunicipios>> GetCatMunicipios(int id)
         {
-            var catPaises = await _context.CatPaises.FindAsync(id);
+            var catMunicipios = await _context.CatMunicipios.FindAsync(id);
 
-            if (catPaises == null)
+            if (catMunicipios == null)
             {
                 return NotFound();
             }
 
-            return catPaises;
+            return catMunicipios;
         }
 
-        // PUT: api/CatPaises/5
+        // PUT: api/CatMunicipios/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCatPaises(int id, CatPaises catPaises)
+        public async Task<IActionResult> PutCatMunicipios(int id, CatMunicipios catMunicipios)
         {
-            if (id != catPaises.Idpais)
+            if (id != catMunicipios.Idmunicipio)
             {
                 return BadRequest();
             }
 
-            _context.Entry(catPaises).State = EntityState.Modified;
+            _context.Entry(catMunicipios).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace CocontroladorAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CatPaisesExists(id))
+                if (!CatMunicipiosExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace CocontroladorAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/CatPaises
+        // POST: api/CatMunicipios
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<CatPaises>> PostCatPaises(CatPaises catPaises)
+        public async Task<ActionResult<CatMunicipios>> PostCatMunicipios(CatMunicipios catMunicipios)
         {
-            _context.CatPaises.Add(catPaises);
+            _context.CatMunicipios.Add(catMunicipios);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCatPaises", new { id = catPaises.Idpais }, catPaises);
+            return CreatedAtAction("GetCatMunicipios", new { id = catMunicipios.Idmunicipio }, catMunicipios);
         }
 
-        // DELETE: api/CatPaises/5
+        // DELETE: api/CatMunicipios/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<CatPaises>> DeleteCatPaises(int id)
+        public async Task<ActionResult<CatMunicipios>> DeleteCatMunicipios(int id)
         {
-            var catPaises = await _context.CatPaises.FindAsync(id);
-            if (catPaises == null)
+            var catMunicipios = await _context.CatMunicipios.FindAsync(id);
+            if (catMunicipios == null)
             {
                 return NotFound();
             }
 
-            _context.CatPaises.Remove(catPaises);
+            _context.CatMunicipios.Remove(catMunicipios);
             await _context.SaveChangesAsync();
 
-            return catPaises;
+            return catMunicipios;
         }
 
-        private bool CatPaisesExists(int id)
+        private bool CatMunicipiosExists(int id)
         {
-            return _context.CatPaises.Any(e => e.Idpais == id);
+            return _context.CatMunicipios.Any(e => e.Idmunicipio == id);
         }
     }
 }

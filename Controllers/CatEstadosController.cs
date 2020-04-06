@@ -10,50 +10,50 @@ using CocontroladorAPI.Models;
 namespace CocontroladorAPI.Controllers
 {
     [Produces("application/json")]
-    [Route("api/CatPaises")]
+    [Route("api/CatEstados")]
     [ApiController]
-    public class CatPaisesController : ControllerBase
+    public class CatEstadosController : ControllerBase
     {
         private readonly CocotecaContext _context;
 
-        public CatPaisesController(CocotecaContext context)
+        public CatEstadosController(CocotecaContext context)
         {
             _context = context;
         }
 
-        // GET: api/CatPaises
+        // GET: api/CatEstados
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CatPaises>>> GetCatPaises()
+        public async Task<ActionResult<IEnumerable<CatEstados>>> GetCatEstados()
         {
-            return await _context.CatPaises.ToListAsync();
+            return await _context.CatEstados.ToListAsync();
         }
 
-        // GET: api/CatPaises/5
+        // GET: api/CatEstados/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CatPaises>> GetCatPaises(int id)
+        public async Task<ActionResult<CatEstados>> GetCatEstados(int id)
         {
-            var catPaises = await _context.CatPaises.FindAsync(id);
+            var catEstados = await _context.CatEstados.FindAsync(id);
 
-            if (catPaises == null)
+            if (catEstados == null)
             {
                 return NotFound();
             }
 
-            return catPaises;
+            return catEstados;
         }
 
-        // PUT: api/CatPaises/5
+        // PUT: api/CatEstados/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCatPaises(int id, CatPaises catPaises)
+        public async Task<IActionResult> PutCatEstados(int id, CatEstados catEstados)
         {
-            if (id != catPaises.Idpais)
+            if (id != catEstados.Idestado)
             {
                 return BadRequest();
             }
 
-            _context.Entry(catPaises).State = EntityState.Modified;
+            _context.Entry(catEstados).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace CocontroladorAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CatPaisesExists(id))
+                if (!CatEstadosExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace CocontroladorAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/CatPaises
+        // POST: api/CatEstados
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<CatPaises>> PostCatPaises(CatPaises catPaises)
+        public async Task<ActionResult<CatEstados>> PostCatEstados(CatEstados catEstados)
         {
-            _context.CatPaises.Add(catPaises);
+            _context.CatEstados.Add(catEstados);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCatPaises", new { id = catPaises.Idpais }, catPaises);
+            return CreatedAtAction("GetCatEstados", new { id = catEstados.Idestado }, catEstados);
         }
 
-        // DELETE: api/CatPaises/5
+        // DELETE: api/CatEstados/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<CatPaises>> DeleteCatPaises(int id)
+        public async Task<ActionResult<CatEstados>> DeleteCatEstados(int id)
         {
-            var catPaises = await _context.CatPaises.FindAsync(id);
-            if (catPaises == null)
+            var catEstados = await _context.CatEstados.FindAsync(id);
+            if (catEstados == null)
             {
                 return NotFound();
             }
 
-            _context.CatPaises.Remove(catPaises);
+            _context.CatEstados.Remove(catEstados);
             await _context.SaveChangesAsync();
 
-            return catPaises;
+            return catEstados;
         }
 
-        private bool CatPaisesExists(int id)
+        private bool CatEstadosExists(int id)
         {
-            return _context.CatPaises.Any(e => e.Idpais == id);
+            return _context.CatEstados.Any(e => e.Idestado == id);
         }
     }
 }

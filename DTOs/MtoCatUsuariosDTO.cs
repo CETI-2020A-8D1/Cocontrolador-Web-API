@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace CocontroladorAPI.DTOs
 {
-    public class MtoCatClienteDTO
+    public class MtoCatUsuariosDTO
     {
-        public int Idcliente { get; set; }
-        public string Email { get; set; }
+        public int Idusuario { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
 
-        public List<TraComprasDTO> TraCompras { get; set; }
+        public virtual List<CatDireccionesDTO> CatDirecciones { get; set; }
+        public virtual List<TraComprasDTO> TraCompras { get; set; }
     }
 }

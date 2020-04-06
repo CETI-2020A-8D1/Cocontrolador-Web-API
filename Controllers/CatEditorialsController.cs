@@ -10,13 +10,13 @@ using CocontroladorAPI.Models;
 namespace CocontroladorAPI.Controllers
 {
     [Produces("application/json")]
-    [Route("api/CatEditorial")]
+    [Route("api/Editorial")]
     [ApiController]
     public class CatEditorialsController : ControllerBase
     {
-        private readonly CocotecaPruebaContext _context;
+        private readonly CocotecaContext _context;
 
-        public CatEditorialsController(CocotecaPruebaContext context)
+        public CatEditorialsController(CocotecaContext context)
         {
             _context = context;
         }
@@ -81,21 +81,7 @@ namespace CocontroladorAPI.Controllers
         public async Task<ActionResult<CatEditorial>> PostCatEditorial(CatEditorial catEditorial)
         {
             _context.CatEditorial.Add(catEditorial);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (CatEditorialExists(catEditorial.Ideditorial))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetCatEditorial", new { id = catEditorial.Ideditorial }, catEditorial);
         }

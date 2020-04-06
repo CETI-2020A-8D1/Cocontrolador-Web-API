@@ -12,7 +12,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using CocontroladorAPI.DTOs;
-using AutoMapper;
 
 namespace CocontroladorAPI
 {
@@ -29,13 +28,12 @@ namespace CocontroladorAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
-                services.AddControllersWithViews().AddNewtonsoftJson(opciones =>
-                opciones.SerializerSettings.ReferenceLoopHandling =
-                Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.AddControllersWithViews().AddNewtonsoftJson(opciones =>
+               opciones.SerializerSettings.ReferenceLoopHandling =
+               Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
-            services.AddDbContext<Models.CocotecaPruebaContext>(opciones =>
-                opciones.UseSqlServer("Server = DESKTOP-PCSQKMV; Database = CocotecaPrueba; User ID = neri; Password = Ajimin011100"));
+            services.AddDbContext<Models.CocotecaContext>(opciones =>
+                opciones.UseSqlServer("Data Source=DESKTOP-OL4GQ9B;Initial Catalog=Cocoteca;Integrated Security=True"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

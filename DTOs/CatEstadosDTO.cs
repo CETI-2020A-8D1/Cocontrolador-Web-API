@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace CocontroladorAPI.DTOs
 {
-    public class CatEditorialDTO
+    public class CatEstadosDTO
     {
-        public int Ideditorial { get; set; }
+        public int Idestado { get; set; }
         public string Nombre { get; set; }
 
-        public virtual List<MtoCatLibrosDTO> MtoCatLibros { get; set; }
+        public virtual List<CatEstadosMunicipiosDTO> CatEstadosMunicipios { get; set; }
     }
 }

@@ -4,26 +4,29 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace CocontroladorAPI.Models
 {
-    public partial class CocotecaPruebaContext : DbContext
+    public partial class CocotecaContext : DbContext
     {
-        public CocotecaPruebaContext()
+        public CocotecaContext()
         {
         }
 
-        public CocotecaPruebaContext(DbContextOptions<CocotecaPruebaContext> opciones)
-            : base(opciones)
+        public CocotecaContext(DbContextOptions<CocotecaContext> options)
+            : base(options)
         {
         }
 
         public virtual DbSet<CatCategorias> CatCategorias { get; set; }
+        public virtual DbSet<CatDirecciones> CatDirecciones { get; set; }
         public virtual DbSet<CatEditorial> CatEditorial { get; set; }
+        public virtual DbSet<CatEstados> CatEstados { get; set; }
+        public virtual DbSet<CatEstadosMunicipios> CatEstadosMunicipios { get; set; }
+        public virtual DbSet<CatMunicipios> CatMunicipios { get; set; }
         public virtual DbSet<CatPaises> CatPaises { get; set; }
-        public virtual DbSet<MtoCatCliente> MtoCatCliente { get; set; }
         public virtual DbSet<MtoCatLibros> MtoCatLibros { get; set; }
+        public virtual DbSet<MtoCatUsuarios> MtoCatUsuarios { get; set; }
         public virtual DbSet<TraCompras> TraCompras { get; set; }
         public virtual DbSet<TraConceptoCompra> TraConceptoCompra { get; set; }
-
-       
+  
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,13 +36,45 @@ namespace CocontroladorAPI.Models
 
                 entity.ToTable("Cat_Categorias");
 
-                entity.Property(e => e.Idcategoria)
-                    .HasColumnName("IDCategoria")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.Idcategoria).HasColumnName("IDCategoria");
 
                 entity.Property(e => e.Nombre)
                     .HasMaxLength(50)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<CatDirecciones>(entity =>
+            {
+                entity.HasKey(e => e.Iddireccion);
+
+                entity.ToTable("Cat_Direcciones");
+
+                entity.Property(e => e.Iddireccion).HasColumnName("IDDireccion");
+
+                entity.Property(e => e.Calle)
+                    .IsRequired()
+                    .HasMaxLength(128)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Idmunicipio).HasColumnName("IDMunicipio");
+
+                entity.Property(e => e.Idusuario).HasColumnName("IDUsuario");
+
+                entity.Property(e => e.NoInterior)
+                    .HasMaxLength(30)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdmunicipioNavigation)
+                    .WithMany(p => p.CatDirecciones)
+                    .HasForeignKey(d => d.Idmunicipio)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Cat_Direcciones_Cat_Municipios");
+
+                entity.HasOne(d => d.IdusuarioNavigation)
+                    .WithMany(p => p.CatDirecciones)
+                    .HasForeignKey(d => d.Idusuario)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Cat_Direcciones_MtoCat_Usuarios");
             });
 
             modelBuilder.Entity<CatEditorial>(entity =>
@@ -48,12 +83,63 @@ namespace CocontroladorAPI.Models
 
                 entity.ToTable("Cat_Editorial");
 
-                entity.Property(e => e.Ideditorial)
-                    .HasColumnName("IDEditorial")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.Ideditorial).HasColumnName("IDEditorial");
 
                 entity.Property(e => e.Nombre)
                     .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<CatEstados>(entity =>
+            {
+                entity.HasKey(e => e.Idestado);
+
+                entity.ToTable("Cat_Estados");
+
+                entity.Property(e => e.Idestado).HasColumnName("IDEstado");
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(128)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<CatEstadosMunicipios>(entity =>
+            {
+                entity.HasKey(e => e.IdestadoMunicipio);
+
+                entity.ToTable("Cat_EstadosMunicipios");
+
+                entity.Property(e => e.IdestadoMunicipio).HasColumnName("IDEstadoMunicipio");
+
+                entity.Property(e => e.Idestado).HasColumnName("IDEstado");
+
+                entity.Property(e => e.Idmunicipio).HasColumnName("IDMunicipio");
+
+                entity.HasOne(d => d.IdestadoNavigation)
+                    .WithMany(p => p.CatEstadosMunicipios)
+                    .HasForeignKey(d => d.Idestado)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Cat_EstadosMunicipios_Cat_Estados");
+
+                entity.HasOne(d => d.IdmunicipioNavigation)
+                    .WithMany(p => p.CatEstadosMunicipios)
+                    .HasForeignKey(d => d.Idmunicipio)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Cat_EstadosMunicipios_Cat_Municipios");
+            });
+
+            modelBuilder.Entity<CatMunicipios>(entity =>
+            {
+                entity.HasKey(e => e.Idmunicipio);
+
+                entity.ToTable("Cat_Municipios");
+
+                entity.Property(e => e.Idmunicipio).HasColumnName("IDMunicipio");
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(128)
                     .IsUnicode(false);
             });
 
@@ -73,34 +159,6 @@ namespace CocontroladorAPI.Models
 
                 entity.Property(e => e.Nombre)
                     .HasMaxLength(128)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<MtoCatCliente>(entity =>
-            {
-                entity.HasKey(e => e.Idcliente);
-
-                entity.ToTable("MtoCat_Cliente");
-
-                entity.HasIndex(e => e.Email)
-                    .HasName("UK_MtoCat_Cliente")
-                    .IsUnique();
-
-                entity.Property(e => e.Idcliente).HasColumnName("IDCliente");
-
-                entity.Property(e => e.Apellido)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Email)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Nombre)
-                    .IsRequired()
-                    .HasMaxLength(50)
                     .IsUnicode(false);
             });
 
@@ -138,6 +196,11 @@ namespace CocontroladorAPI.Models
 
                 entity.Property(e => e.Precio).HasColumnType("money");
 
+                entity.Property(e => e.Sinopsis)
+                    .IsRequired()
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.Titulo)
                     .IsRequired()
                     .HasMaxLength(200)
@@ -162,27 +225,45 @@ namespace CocontroladorAPI.Models
                     .HasConstraintName("FK_MtoCat_Libros_Cat_Paises");
             });
 
+            modelBuilder.Entity<MtoCatUsuarios>(entity =>
+            {
+                entity.HasKey(e => e.Idusuario)
+                    .HasName("PK_MtoCat_Usuario");
+
+                entity.ToTable("MtoCat_Usuarios");
+
+                entity.Property(e => e.Idusuario).HasColumnName("IDUsuario");
+
+                entity.Property(e => e.Apellido)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
             modelBuilder.Entity<TraCompras>(entity =>
             {
                 entity.HasKey(e => e.Idcompra);
 
                 entity.ToTable("Tra_Compras");
 
-                entity.Property(e => e.Idcompra)
-                    .HasColumnName("IDCompra")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.Idcompra).HasColumnName("IDCompra");
 
                 entity.Property(e => e.FechaCompra).HasColumnType("datetime");
 
-                entity.Property(e => e.Idcliente).HasColumnName("IDCliente");
+                entity.Property(e => e.Idusuario).HasColumnName("IDUsuario");
 
                 entity.Property(e => e.PrecioTotal).HasColumnType("money");
 
-                entity.HasOne(d => d.IdclienteNavigation)
+                entity.HasOne(d => d.IdusuarioNavigation)
                     .WithMany(p => p.TraCompras)
-                    .HasForeignKey(d => d.Idcliente)
+                    .HasForeignKey(d => d.Idusuario)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Tra_Compras_MtoCat_Cliente");
+                    .HasConstraintName("FK_Tra_Compras_MtoCat_Usuario");
             });
 
             modelBuilder.Entity<TraConceptoCompra>(entity =>
@@ -191,9 +272,7 @@ namespace CocontroladorAPI.Models
 
                 entity.ToTable("Tra_ConceptoCompra");
 
-                entity.Property(e => e.TraCompras)
-                    .HasColumnName("Tra_Compras")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.TraCompras).HasColumnName("Tra_Compras");
 
                 entity.Property(e => e.Idcompra).HasColumnName("IDCompra");
 

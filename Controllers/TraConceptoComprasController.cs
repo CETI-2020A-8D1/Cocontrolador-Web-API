@@ -10,13 +10,13 @@ using CocontroladorAPI.Models;
 namespace CocontroladorAPI.Controllers
 {
     [Produces("application/json")]
-    [Route("api/TraConceptoCompras")]
+    [Route("api/TraConceptoCompra")]
     [ApiController]
     public class TraConceptoComprasController : ControllerBase
     {
-        private readonly CocotecaPruebaContext _context;
+        private readonly CocotecaContext _context;
 
-        public TraConceptoComprasController(CocotecaPruebaContext context)
+        public TraConceptoComprasController(CocotecaContext context)
         {
             _context = context;
         }
@@ -81,21 +81,7 @@ namespace CocontroladorAPI.Controllers
         public async Task<ActionResult<TraConceptoCompra>> PostTraConceptoCompra(TraConceptoCompra traConceptoCompra)
         {
             _context.TraConceptoCompra.Add(traConceptoCompra);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (TraConceptoCompraExists(traConceptoCompra.TraCompras))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetTraConceptoCompra", new { id = traConceptoCompra.TraCompras }, traConceptoCompra);
         }

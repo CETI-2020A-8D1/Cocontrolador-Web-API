@@ -14,9 +14,9 @@ namespace CocontroladorAPI.Controllers
     [ApiController]
     public class MtoCatLibrosController : ControllerBase
     {
-        private readonly CocotecaPruebaContext _context;
+        private readonly CocotecaContext _context;
 
-        public MtoCatLibrosController(CocotecaPruebaContext context)
+        public MtoCatLibrosController(CocotecaContext context)
         {
             _context = context;
         }
