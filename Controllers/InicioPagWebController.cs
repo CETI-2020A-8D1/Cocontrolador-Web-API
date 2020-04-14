@@ -29,7 +29,7 @@ namespace CocontroladorAPI.Controllers
 
             List<CatCategorias> categorias2 = new List<CatCategorias>();
             //Si categorias es menor a cinco
-            if (categorias.Count < 5)
+            if (categorias.Count() < 5)
             {
                 foreach (var cat in categorias)
                 {
@@ -42,18 +42,17 @@ namespace CocontroladorAPI.Controllers
                         categorias2.Add(cat);
                     }
                 }
-                
             }
             else
             {
                 Random rnd = new Random();
                 int i = 0;
                 int cont = 0;
-                while(i < 5 && cont < categorias.Count)
+                while (i < 5 && cont < categorias.Count())
                 {
-                    var cat = categorias.ElementAt(rnd.Next(0, categorias.Count));
-                    //Si hay 5 libros o más en la categoría
-                    if (CantidadLibros(cat) >= 5)
+                    var cat = categorias.ElementAt(rnd.Next(0, categorias.Count()));
+                    //Si hay 5 libros o más en la categoría y no está la categoria ya
+                    if (CantidadLibros(cat) >= 5 && !categorias2.Exists(o => o.Idcategoria == cat.Idcategoria))
                     {
                         var libros = await _context.MtoCatLibros.Where(o => o.Descontinuado == false &&
                             o.Idcategoria == cat.Idcategoria && o.Stock > 0).Take(5).ToListAsync();

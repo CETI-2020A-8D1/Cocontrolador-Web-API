@@ -35,7 +35,7 @@ namespace CocontroladorAPI
                 Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddDbContext<Models.CocotecaPruebaContext>(opciones =>
-                opciones.UseSqlServer("Server = DESKTOP-PCSQKMV; Database = CocotecaPrueba; User ID = neri; Password = Ajimin011100"));
+                opciones.UseSqlServer("Server = DESKTOP-PCSQKMV; Database = CocotecaPrueba; User ID = judith; Password = judith00"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
