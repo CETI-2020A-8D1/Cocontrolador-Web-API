@@ -12,6 +12,7 @@ namespace CocontroladorAPI.Models
         }
 
         public int Idusuario { get; set; }
+        public string IDidentity { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
 

@@ -232,6 +232,16 @@ namespace CocontroladorAPI.Models
 
                 entity.ToTable("MtoCat_Usuarios");
 
+                entity.HasIndex(e => e.IDidentity)
+                    .HasName("UK_Table_MtoCat_Usuarios")
+                    .IsUnique();
+
+                entity.Property(e => e.IDidentity)
+                    .IsRequired()
+                    .HasColumnName("IDIdentity")
+                    .HasMaxLength(450)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.Idusuario).HasColumnName("IDUsuario");
 
                 entity.Property(e => e.Apellido)
