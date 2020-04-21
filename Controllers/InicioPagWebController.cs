@@ -52,8 +52,8 @@ namespace CocontroladorAPI.Controllers
                 while(i < 5 && cont < categorias.Count)
                 {
                     var cat = categorias.ElementAt(rnd.Next(0, categorias.Count));
-                    //Si hay 5 libros o más en la categoría
-                    if (CantidadLibros(cat) >= 5)
+                    //Si hay 5 libros o más en la categoría y no está la categoria ya
+                    if (CantidadLibros(cat) >= 5 && !categorias2.Exists(o => o.Idcategoria == cat.Idcategoria))
                     {
                         var libros = await _context.MtoCatLibros.Where(o => o.Descontinuado == false &&
                             o.Idcategoria == cat.Idcategoria && o.Stock > 0).Take(5).ToListAsync();
