@@ -14,6 +14,7 @@ namespace CocontroladorAPI.Models
         public string Isbn { get; set; }
         public string Titulo { get; set; }
         public string Autor { get; set; }
+        public string Sinopsis { get; set; }
         public bool Descontinuado { get; set; }
         public int Paginas { get; set; }
         public int Revision { get; set; }

@@ -40,11 +40,8 @@ namespace CocontroladorAPI
                 Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddDbContext<Models.CocotecaPruebaContext>(opciones =>
-<<<<<<< HEAD
             opciones.UseSqlServer("Server=LAPTOP-UOPKI5AA\\MSSQLSERVER01;Database=Cocoteca;Integrated Security=True"));
-=======
-            opciones.UseSqlServer("Server=DESKTOP-HMU7HLM\\MSSQLSERVER01;Database=Cocoteca;Integrated Security=True" ));
->>>>>>> 067dd919b7ada83df3b4c24e42fbe545f12f4706
+
             //opciones.UseSqlServer("Server = DESKTOP-PCSQKMV; Database = CocotecaPrueba; User ID = neri; Password = Ajimin011100"));
         }
 
