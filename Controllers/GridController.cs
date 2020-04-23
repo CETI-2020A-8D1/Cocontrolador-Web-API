@@ -33,6 +33,12 @@ namespace CocontroladorAPI.Controllers
             var categorias = await _context.CatCategorias
                 .Where(c => c.MtoCatLibros.Count() > 0 && c.MtoCatLibros.Any(o => !o.Descontinuado && o.Stock > 0))
                 .ToListAsync();
+
+            if (categorias == null)
+            {
+                return NotFound();
+            }
+
             return categorias;
         }
 
@@ -42,6 +48,11 @@ namespace CocontroladorAPI.Controllers
         {
             var books = await _context.MtoCatLibros.Where(b => b.Idcategoria == id && b.Descontinuado == false
                             && b.Stock > 0).ToListAsync();
+
+            if (books == null)
+            {
+                return NotFound();
+            }
 
             return books;
         }

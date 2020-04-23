@@ -86,6 +86,12 @@ namespace CocontroladorAPI.Controllers
                     cont++;
                 }
             }
+
+            if (categorias2 == null)
+            {
+                return NotFound();
+            }
+
             return categorias2;
         }
 

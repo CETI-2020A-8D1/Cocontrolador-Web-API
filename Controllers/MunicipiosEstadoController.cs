@@ -25,7 +25,14 @@ namespace CocontroladorAPI.Controllers
         {
             var municipios = await _context.CatMunicipios
                 .Where(c => c.CatEstadosMunicipios.All(o => o.Idestado == id))
+                .OrderBy(o => o.Nombre)
                 .ToListAsync();
+
+            if (municipios == null)
+            {
+                return NotFound();
+            }
+
             return municipios;
         }
     }
