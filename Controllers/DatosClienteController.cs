@@ -76,6 +76,36 @@ namespace CocontroladorAPI.Controllers
             return mtoCatUsuarios;
         }
 
+        [HttpGet("Compras/{id}")]
+        public async Task<ActionResult<IEnumerable<TraCompras>>> GetCompras(string id)
+        {
+            var idUsuario = await _context.MtoCatUsuarios.Where(o => o.IDidentity.Equals(id)).Select(o => o.Idusuario).FirstOrDefaultAsync();
+            var compras = await _context.TraCompras.Where(o => o.Idusuario == idUsuario && o.Pagado == true).ToListAsync();
+
+            if (compras == null)
+            {
+                return NotFound();
+            }
+
+            return compras;
+        }
+
+        //api/DatosCliente/Compra?id=a&idIdentity=b
+        [HttpGet("Compra")]
+        public async Task<ActionResult<TraCompras>> GetCompra(int id, string idIdentity)
+        {
+            var idUsuario = await _context.MtoCatUsuarios.Where(o => o.IDidentity.Equals(idIdentity)).Select(o => o.Idusuario).FirstOrDefaultAsync();
+            var compra = await _context.TraCompras.Where(o => o.Idusuario == idUsuario && o.Pagado == true && o.Idcompra == id).FirstOrDefaultAsync();
+            
+            if (compra == null)
+            {
+                return NotFound();
+            }
+            var detallescompra = await _context.TraConceptoCompra.Where(o => o.Idcompra == id).ToListAsync();
+            compra.TraConceptoCompra = detallescompra;
+            return compra;
+        }
+
 
     }
 }
