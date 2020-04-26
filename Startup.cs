@@ -33,7 +33,7 @@ namespace CocontroladorAPI
                Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddDbContext<Models.CocotecaContext>(opciones =>
-                opciones.UseSqlServer("Data Source=DESKTOP-OL4GQ9B;Initial Catalog=Cocoteca;Integrated Security=True"));
+                opciones.UseSqlServer("Server=DESKTOP-HMU7HLM\\MSSQLSERVER01;Database=Cocoteca;Integrated Security=True"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
