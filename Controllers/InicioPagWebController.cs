@@ -42,7 +42,7 @@ namespace CocontroladorAPI.Controllers
         /// Busca un listado de máximo 5 categorías que tengan 5 libros que no esten descontinuados
         /// y que haya por lo menos uno en stock.
         /// </summary>
-        /// <returns>Listado de categorias y libros en esas categorias</returns>
+        /// <returns>Listado de categorias y libros en esas categorias, si no encuentra nada retorna un status 404</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CatCategorias>>> GetInicio()
         {
