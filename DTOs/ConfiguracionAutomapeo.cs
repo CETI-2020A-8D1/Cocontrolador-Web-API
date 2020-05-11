@@ -11,27 +11,43 @@ namespace CocontroladorAPI.DTOs
     {
         public static void Configurar()
         {
-            AutoMapper.Mapper.Initialize(cfg =>
+            Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<CatCategorias, CatCategoriasDTO>()
                    .ForMember(x => x.MtoCatLibros, o => o.Ignore())
                    //.ForMember(x => x.Nombre, o => o.MapFrom(s => s.FirstName))
                    .ReverseMap();
 
+                cfg.CreateMap<CatDirecciones, CatDireccionesDTO>()
+                   .ReverseMap();
+
                 cfg.CreateMap<CatEditorial, CatEditorialDTO>()
                    .ForMember(x => x.MtoCatLibros, o => o.Ignore())
+                   .ReverseMap();
+
+                cfg.CreateMap<CatEstados, CatEstadosDTO>()
+                .ForMember(x => x.CatEstadosMunicipios, o => o.Ignore())
+                   .ReverseMap();
+
+                cfg.CreateMap<CatEstadosMunicipios, CatEstadosMunicipiosDTO>()
+                   .ReverseMap();
+
+                cfg.CreateMap<CatMunicipios, CatMunicipiosDTO>()
+                   .ForMember(x => x.CatDirecciones, o => o.Ignore())
+                   .ForMember(x => x.CatEstadosMunicipios, o => o.Ignore())
                    .ReverseMap();
 
                 cfg.CreateMap<CatPaises, CatPaisesDTO>()
                    .ForMember(x => x.MtoCatLibros, o => o.Ignore())
                    .ReverseMap();
 
-                cfg.CreateMap<MtoCatCliente, MtoCatClienteDTO>()
-                   .ForMember(x => x.TraCompras, o => o.Ignore())
-                   .ReverseMap();
-
                 cfg.CreateMap<MtoCatLibros, MtoCatLibrosDTO>()
                    .ForMember(x => x.TraConceptoCompra, o => o.Ignore())
+                   .ReverseMap();
+
+                cfg.CreateMap<MtoCatUsuarios, MtoCatUsuariosDTO>()
+                   .ForMember(x => x.CatDirecciones, o => o.Ignore())
+                   .ForMember(x => x.TraCompras, o => o.Ignore())
                    .ReverseMap();
 
                 cfg.CreateMap<TraCompras, TraComprasDTO>()
@@ -39,7 +55,7 @@ namespace CocontroladorAPI.DTOs
                    .ReverseMap();
 
                 cfg.CreateMap<TraConceptoCompra, TraConceptoCompraDTO>()
-                  .ReverseMap();
+                   .ReverseMap();
             });
         }
     }

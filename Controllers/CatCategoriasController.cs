@@ -14,9 +14,9 @@ namespace CocontroladorAPI.Controllers
     [ApiController]
     public class CatCategoriasController : ControllerBase
     {
-        private readonly CocotecaPruebaContext _context;
+        private readonly CocotecaContext _context;
 
-        public CatCategoriasController(CocotecaPruebaContext context)
+        public CatCategoriasController(CocotecaContext context)
         {
             _context = context;
         }
@@ -81,21 +81,7 @@ namespace CocontroladorAPI.Controllers
         public async Task<ActionResult<CatCategorias>> PostCatCategorias(CatCategorias catCategorias)
         {
             _context.CatCategorias.Add(catCategorias);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (CatCategoriasExists(catCategorias.Idcategoria))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetCatCategorias", new { id = catCategorias.Idcategoria }, catCategorias);
         }

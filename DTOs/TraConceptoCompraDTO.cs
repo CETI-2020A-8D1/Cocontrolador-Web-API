@@ -12,7 +12,7 @@ namespace CocontroladorAPI.DTOs
         public int Idlibro { get; set; }
         public int Cantidad { get; set; }
 
-        public TraComprasDTO IdcompraNavigation { get; set; }
-        public MtoCatLibrosDTO IdlibroNavigation { get; set; }
+        public virtual TraComprasDTO IdcompraNavigation { get; set; }
+        public virtual MtoCatLibrosDTO IdlibroNavigation { get; set; }
     }
 }

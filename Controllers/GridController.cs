@@ -16,12 +16,12 @@ using CocontroladorAPI.Models;
 namespace CocontroladorAPI.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Grid")]
+    [Route("api/[controller]")]
     [ApiController]
     public class GridController : Controller
     {
-        private readonly CocotecaPruebaContext _context;
-        public GridController(CocotecaPruebaContext context)
+        private readonly CocotecaContext _context;
+        public GridController(CocotecaContext context)
         {
             _context = context;
         }
@@ -30,7 +30,14 @@ namespace CocontroladorAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CatCategorias>>> GetCategorias()
         {
-            var categorias = await _context.CatCategorias.Where(c => c.MtoCatLibros.Count() > 0).ToListAsync();
+            var categorias = await _context.CatCategorias
+                .Where(c => c.MtoCatLibros.Count() > 0 && c.MtoCatLibros.Any(o => !o.Descontinuado && o.Stock > 0))
+                .ToListAsync();
+
+            if (categorias == null)
+            {
+                return NotFound();
+            }
 
             return categorias;
         }
@@ -41,6 +48,11 @@ namespace CocontroladorAPI.Controllers
         {
             var books = await _context.MtoCatLibros.Where(b => b.Idcategoria == id && b.Descontinuado == false
                             && b.Stock > 0).ToListAsync();
+
+            if (books == null)
+            {
+                return NotFound();
+            }
 
             return books;
         }

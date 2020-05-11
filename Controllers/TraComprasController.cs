@@ -14,9 +14,9 @@ namespace CocontroladorAPI.Controllers
     [ApiController]
     public class TraComprasController : ControllerBase
     {
-        private readonly CocotecaPruebaContext _context;
+        private readonly CocotecaContext _context;
 
-        public TraComprasController(CocotecaPruebaContext context)
+        public TraComprasController(CocotecaContext context)
         {
             _context = context;
         }
@@ -81,21 +81,7 @@ namespace CocontroladorAPI.Controllers
         public async Task<ActionResult<TraCompras>> PostTraCompras(TraCompras traCompras)
         {
             _context.TraCompras.Add(traCompras);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (TraComprasExists(traCompras.Idcompra))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetTraCompras", new { id = traCompras.Idcompra }, traCompras);
         }

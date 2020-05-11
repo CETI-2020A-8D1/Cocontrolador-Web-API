@@ -11,9 +11,9 @@ namespace CocontroladorAPI.DTOs
         public decimal? PrecioTotal { get; set; }
         public DateTime? FechaCompra { get; set; }
         public bool Pagado { get; set; }
-        public int Idcliente { get; set; }
+        public int Idusuario { get; set; }
 
-        public MtoCatClienteDTO IdclienteNavigation { get; set; }
-        public List<TraConceptoCompraDTO> TraConceptoCompra { get; set; }
+        public virtual MtoCatUsuariosDTO IdusuarioNavigation { get; set; }
+        public virtual List<TraConceptoCompraDTO> TraConceptoCompra { get; set; }
     }
 }
