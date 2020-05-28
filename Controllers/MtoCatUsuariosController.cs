@@ -91,13 +91,14 @@ namespace CocontroladorAPI.Controllers
         public async Task<ActionResult<MtoCatUsuarios>> DeleteMtoCatUsuarios(int id)
         {
             var mtoCatUsuarios = await _context.MtoCatUsuarios.FindAsync(id);
+
             if (mtoCatUsuarios == null)
             {
                 return NotFound();
             }
 
-            _context.MtoCatUsuarios.Remove(mtoCatUsuarios);
-            await _context.SaveChangesAsync();
+            var direccion = await _context.CatDirecciones.Where(o => o.Idusuario == mtoCatUsuarios.Idusuario).ToListAsync();
+            mtoCatUsuarios.CatDirecciones = direccion;
 
             return mtoCatUsuarios;
         }
