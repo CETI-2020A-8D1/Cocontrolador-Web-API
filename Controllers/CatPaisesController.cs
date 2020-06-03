@@ -9,6 +9,13 @@ using CocontroladorAPI.Models;
 
 namespace CocontroladorAPI.Controllers
 {
+    /**
+     * 
+     * 
+     * 
+     * 
+     * 
+     */
     [Produces("application/json")]
     [Route("api/CatPaises")]
     [ApiController]
@@ -16,10 +23,23 @@ namespace CocontroladorAPI.Controllers
     {
         private readonly CocotecaContext _context;
 
+        /**
+         * 
+         * 
+         * 
+         */
         public CatPaisesController(CocotecaContext context)
         {
             _context = context;
         }
+
+        /**
+        * 
+        * 
+        * 
+        * 
+        * 
+        */
 
         // GET: api/CatPaises
         [HttpGet]
@@ -27,6 +47,14 @@ namespace CocontroladorAPI.Controllers
         {
             return await _context.CatPaises.ToListAsync();
         }
+
+        /**
+        * 
+        * 
+        * 
+        * 
+        * 
+        */
 
         // GET: api/CatPaises/5
         [HttpGet("{id}")]
@@ -41,6 +69,14 @@ namespace CocontroladorAPI.Controllers
 
             return catPaises;
         }
+
+        /**
+        * 
+        * 
+        * 
+        * 
+        * 
+        */
 
         // PUT: api/CatPaises/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
@@ -74,6 +110,14 @@ namespace CocontroladorAPI.Controllers
             return NoContent();
         }
 
+        /**
+        * 
+        * 
+        * 
+        * 
+        * 
+        */
+
         // POST: api/CatPaises
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
@@ -85,6 +129,14 @@ namespace CocontroladorAPI.Controllers
 
             return CreatedAtAction("GetCatPaises", new { id = catPaises.Idpais }, catPaises);
         }
+
+        /**
+        * 
+        * 
+        * 
+        * 
+        * 
+        */
 
         // DELETE: api/CatPaises/5
         [HttpDelete("{id}")]
@@ -101,6 +153,14 @@ namespace CocontroladorAPI.Controllers
 
             return catPaises;
         }
+
+        /**
+        * 
+        * 
+        * 
+        * 
+        * 
+        */
 
         private bool CatPaisesExists(int id)
         {

@@ -9,6 +9,14 @@ using CocontroladorAPI.Models;
 
 namespace CocontroladorAPI.Controllers
 {
+
+    /**
+     * 
+     * 
+     * 
+     * 
+     * 
+     */
     [Produces("application/json")]
     [Route("api/CatCategorias")]
     [ApiController]
@@ -16,10 +24,24 @@ namespace CocontroladorAPI.Controllers
     {
         private readonly CocotecaContext _context;
 
+        /**
+         * 
+         * 
+         * 
+         * 
+         * 
+         */
         public CatCategoriasController(CocotecaContext context)
         {
             _context = context;
         }
+
+        /**
+         * 
+         * 
+         * 
+         * 
+         */
 
         // GET: api/CatCategorias
         [HttpGet]
@@ -28,6 +50,13 @@ namespace CocontroladorAPI.Controllers
             return await _context.CatCategorias.ToListAsync();
         }
 
+        /**
+         * 
+         * 
+         * 
+         * 
+         * 
+         */
         // GET: api/CatCategorias/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CatCategorias>> GetCatCategorias(int id)
@@ -41,6 +70,14 @@ namespace CocontroladorAPI.Controllers
 
             return catCategorias;
         }
+
+        /**
+         * 
+         * 
+         * 
+         * 
+         * 
+         */
 
         // PUT: api/CatCategorias/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
@@ -74,6 +111,13 @@ namespace CocontroladorAPI.Controllers
             return NoContent();
         }
 
+        /**
+         * 
+         * 
+         * 
+         * 
+         */
+
         // POST: api/CatCategorias
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
@@ -85,6 +129,14 @@ namespace CocontroladorAPI.Controllers
 
             return CreatedAtAction("GetCatCategorias", new { id = catCategorias.Idcategoria }, catCategorias);
         }
+
+        /**
+         * 
+         * 
+         * 
+         * 
+         * 
+         */
 
         // DELETE: api/CatCategorias/5
         [HttpDelete("{id}")]
@@ -101,6 +153,13 @@ namespace CocontroladorAPI.Controllers
 
             return catCategorias;
         }
+
+        /**
+         * 
+         * 
+         * 
+         * 
+         */
 
         private bool CatCategoriasExists(int id)
         {

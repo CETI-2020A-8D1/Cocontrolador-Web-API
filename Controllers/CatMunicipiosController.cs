@@ -9,6 +9,13 @@ using CocontroladorAPI.Models;
 
 namespace CocontroladorAPI.Controllers
 {
+
+    /**
+     * 
+     * 
+     * 
+     * 
+     */
     [Produces("application/json")]
     [Route("api/CatMunicipios")]
     [ApiController]
@@ -16,11 +23,25 @@ namespace CocontroladorAPI.Controllers
     {
         private readonly CocotecaContext _context;
 
+        /**
+        * 
+        * 
+        * 
+        * 
+        * 
+        */
         public CatMunicipiosController(CocotecaContext context)
         {
             _context = context;
         }
 
+        /**
+        * 
+        * 
+        * 
+        * 
+        * 
+        */
         // GET: api/CatMunicipios
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CatMunicipios>>> GetCatMunicipios()
@@ -28,6 +49,13 @@ namespace CocontroladorAPI.Controllers
             return await _context.CatMunicipios.ToListAsync();
         }
 
+        /**
+        * 
+        * 
+        * 
+        * 
+        * 
+        */
         // GET: api/CatMunicipios/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CatMunicipios>> GetCatMunicipios(int id)
@@ -41,6 +69,14 @@ namespace CocontroladorAPI.Controllers
 
             return catMunicipios;
         }
+
+        /**
+        * 
+        * 
+        * 
+        * 
+        * 
+        */
 
         // PUT: api/CatMunicipios/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
@@ -74,6 +110,14 @@ namespace CocontroladorAPI.Controllers
             return NoContent();
         }
 
+
+        /**
+        * 
+        * 
+        * 
+        * 
+        * 
+        */
         // POST: api/CatMunicipios
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
@@ -86,6 +130,14 @@ namespace CocontroladorAPI.Controllers
             return CreatedAtAction("GetCatMunicipios", new { id = catMunicipios.Idmunicipio }, catMunicipios);
         }
 
+
+        /**
+        * 
+        * 
+        * 
+        * 
+        * 
+        */
         // DELETE: api/CatMunicipios/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<CatMunicipios>> DeleteCatMunicipios(int id)
@@ -102,6 +154,14 @@ namespace CocontroladorAPI.Controllers
             return catMunicipios;
         }
 
+
+        /**
+        * 
+        * 
+        * 
+        * 
+        * 
+        */
         private bool CatMunicipiosExists(int id)
         {
             return _context.CatMunicipios.Any(e => e.Idmunicipio == id);

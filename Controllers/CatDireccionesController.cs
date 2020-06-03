@@ -9,6 +9,14 @@ using CocontroladorAPI.Models;
 
 namespace CocontroladorAPI.Controllers
 {
+
+    /**
+     * 
+     * 
+     * 
+     * 
+     * 
+     */
     [Produces("application/json")]
     [Route("api/CatDirecciones")]
     [ApiController]
@@ -16,11 +24,25 @@ namespace CocontroladorAPI.Controllers
     {
         private readonly CocotecaContext _context;
 
+        /**
+         * 
+         * 
+         * 
+         * 
+         * 
+         */
         public CatDireccionesController(CocotecaContext context)
         {
             _context = context;
         }
 
+        /**
+        * 
+        * 
+        * 
+        * 
+        * 
+        */
         // GET: api/CatDirecciones
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CatDirecciones>>> GetCatDirecciones()
@@ -28,6 +50,13 @@ namespace CocontroladorAPI.Controllers
             return await _context.CatDirecciones.ToListAsync();
         }
 
+        /**
+        * 
+        * 
+        * 
+        * 
+        * 
+        */
         // GET: api/CatDirecciones/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CatDirecciones>> GetCatDirecciones(int id)
@@ -41,6 +70,14 @@ namespace CocontroladorAPI.Controllers
 
             return catDirecciones;
         }
+
+        /**
+        * 
+        * 
+        * 
+        * 
+        * 
+        */
 
         // PUT: api/CatDirecciones/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
@@ -74,6 +111,14 @@ namespace CocontroladorAPI.Controllers
             return NoContent();
         }
 
+        /**
+        * 
+        * 
+        * 
+        * 
+        * 
+        */
+
         // POST: api/CatDirecciones
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
@@ -85,6 +130,14 @@ namespace CocontroladorAPI.Controllers
 
             return CreatedAtAction("GetCatDirecciones", new { id = catDirecciones.Iddireccion }, catDirecciones);
         }
+
+        /**
+        * 
+        * 
+        * 
+        * 
+        * 
+        */
 
         // DELETE: api/CatDirecciones/5
         [HttpDelete("{id}")]
@@ -102,6 +155,13 @@ namespace CocontroladorAPI.Controllers
             return catDirecciones;
         }
 
+        /**
+        * 
+        * 
+        * 
+        * 
+        * 
+        */
         private bool CatDireccionesExists(int id)
         {
             return _context.CatDirecciones.Any(e => e.Iddireccion == id);
