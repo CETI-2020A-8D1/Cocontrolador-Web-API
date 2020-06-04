@@ -5,6 +5,15 @@ namespace CocontroladorAPI.Models
 {
     public partial class CatMunicipios
     {
+
+        /**
+     * Clase CatCategorias
+     * 
+     * Esta clase es la base para el objeto de la tabla con el mismo nombre,
+     * todas las variables en el son las columans de la tabla y cuenta con un constructor
+     * que regresa la lista con los objeto de la tabla.
+     * 
+     */
         public CatMunicipios()
         {
             CatDirecciones = new HashSet<CatDirecciones>();
