@@ -15,18 +15,25 @@ using CocontroladorAPI.Models;
 
 namespace CocontroladorAPI.Controllers
 {
+    
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class GridController : Controller
     {
         private readonly CocotecaContext _context;
+        //Esta función recibe el contexto de la cocotecaApi y construye el contexto según lo que
+        //reciba la función
         public GridController(CocotecaContext context)
         {
             _context = context;
         }
 
         // GET: api/Grid
+        //Obtener Libros por categorias
+        //Primeramente se realiza una consulta a la base de datos, esta consulta corroborará que la categoria
+        //tenga libros, al haber corroborado. Se enviaran las categorías que tenagn libros. En dado caso que
+        //la categoría no tenga ningun libro, retornará una función que dice que está vacio
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CatCategorias>>> GetCategorias()
         {
@@ -43,6 +50,11 @@ namespace CocontroladorAPI.Controllers
         }
 
         // GET: api/Grid/id
+        // Retornar libros conforme a categoría
+        // Esta función lo que recibe es un id de la categoría, el cual utilizaremos para realizar la
+        // consulta. Esta consulta nos retornará los libros de la categoría a partir del id recibido
+        // en dado caso que no encuentre ningun libro. Retornará un not found, en caso contrario se
+        // retornarán los libros de esa categoría
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<MtoCatLibros>>> GetBook(int id)
         {

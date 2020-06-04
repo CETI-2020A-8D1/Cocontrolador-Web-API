@@ -3,8 +3,14 @@ using System.Collections.Generic;
 
 namespace CocontroladorAPI.Models
 {
+    /// <summary>
+    /// Este es el modelo que se relaciona con los usuarios
+    /// </summary>
     public partial class MtoCatUsuarios
     {
+        /// <summary>
+        /// Aqui se relaciona la tabla de usuarios con las llaves foraneas de Direcciones y de compras
+        /// </summary>
         public MtoCatUsuarios()
         {
             CatDirecciones = new HashSet<CatDirecciones>();

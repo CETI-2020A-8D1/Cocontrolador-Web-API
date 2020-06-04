@@ -3,8 +3,14 @@ using System.Collections.Generic;
 
 namespace CocontroladorAPI.Models
 {
+    /// <summary>
+    /// Este es el modelo que relaciona la tabla Libros
+    /// </summary>
     public partial class MtoCatLibros
     {
+        /// <summary>
+        /// Aqui se relaciona la llave foranea de compras
+        /// </summary>
         public MtoCatLibros()
         {
             TraConceptoCompra = new HashSet<TraConceptoCompra>();
