@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace CocontroladorAPI.Models
 {
+    /// <summary>
+    /// Este es el modelo que se relaciona con la tabla de concepto de la compra
+    /// </summary>
     public partial class TraConceptoCompra
     {
         public int TraCompras { get; set; }
